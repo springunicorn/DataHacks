@@ -5,21 +5,33 @@ var express         = require("express"),
     bodyParser      = require("body-parser"),
     User            = require("./models/usermodel"),
     home            = require("./routes/home"),
-    signup          = require("./routes/signup");
+    signup          = require("./routes/signup"),
+    hidden          = require("./hidden");
 
 var app = express();
+app.set("view engine", "ejs");
 // Express will serve the files in the "public" directory
 // Put css files there
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
+app.use(require("express-session")({
+    secret: hidden,
+    cookie: { secure: true },
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 var mongoose = require("mongoose");
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
-mongoose.connect("mongodb://localhost/test");
+mongoose.connect("mongodb://localhost:27017/test");
 
 var db          = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
