@@ -27,8 +27,6 @@ db.once("open", function(){
    console.log("Mongoose connected.") 
 });
 
-
-
 app.use("/", home);
 app.use("/signup", signup);
 
