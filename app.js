@@ -3,9 +3,10 @@ var express         = require("express"),
     LocalStrategy   = require("passport-local"),
     LocalMongoose   = require("passport-local-mongoose"),
     bodyParser      = require("body-parser"),
-    User            = require("./models/usermodel"),
+    User            = require("./models/user"),
     home            = require("./routes/home"),
-    signup          = require("./routes/signup"),
+    apply           = require("./routes/apply"),
+    dashboard       = require("./routes/dashboard"),
     hidden          = require("./hidden");
 
 var app = express();
@@ -40,7 +41,8 @@ db.once("open", function(){
 });
 
 app.use("/", home);
-app.use("/signup", signup);
+app.use("/apply", apply);
+app.use("/dashboard", dashboard);
 
 app.listen(8080, function() {
     console.log("Server listening on port 8080");
