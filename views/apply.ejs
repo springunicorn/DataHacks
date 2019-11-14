@@ -1,7 +1,92 @@
 <% include partials/header %>
 
 <h1> Apply Page </h1>
-<form action="/apply" method="POST">
+<form action="/apply" method="POST" encType="multipart/form-data">>
+    
+  First name:<br>
+  <input type="text" name="firstname"><br>
+  Last name:<br>
+  <input type="text" name="lastname"> <br> 
+  Email:<br>
+  <input type="text" name="email"> <br> 
+  Phone Number:<br>
+  <input type="text" name="phonenumber"> <br> 
+  School Year:<br>
+  <input type="text" name="schoolyear"> <br> 
+  Major:<br>
+  <input type="text" name="major"> <br> 
+  Minor:<br>
+  <input type="text" name="minor"> <br> 
+  
+  Gender: <br>
+  <input type="radio" name="gender" value="male"> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <input type="radio" name="gender" value="nonbinary"> Nonbinary <br> 
+  <input type="radio" name="gender" value="nodisclose"> Choose Not to Disclose <br> 
+
+  What college are you in? (For UCSD Students) <br>
+  <input type="radio" name="college" value="Revelle"> Revelle <br>
+  <input type="radio" name="college" value="Muir"> Muir<br>
+  <input type="radio" name="college" value="Warren"> Warren <br> 
+  <input type="radio" name="college" value="Marshall"> Marshall <br> 
+  <input type="radio" name="college" value="Roosevelt"> Roosevelt <br> 
+  <input type="radio" name="college" value="Sixth"> Sixth <br> 
+  <input type="radio" name="college" value="DoesNotApply"> Does not apply <br> 
+
+  Expected Graduation year:<br>
+  <input type="text" name="gradyear"> <br> 
+  
+  Were you at the 2019 Datathon? 
+  <input type="radio" name="datathon" value="yesdatathon"> Yes <br>
+  <input type="radio" name="datathon" value="nodatathon"> No <br>
+  
+  Have you taken DSC 80?
+  <input type="radio" name="dsc80" value="dscyes"> Yes <br>
+  <input type="radio" name="dsc80" value="dscno"> No <br>
+  
+  Have you taken any upper Div CSE/COGS/DSC Class? 
+  <input type="radio" name="upperdiv" value="upperdivyes"> Yes <br>
+  <input type="radio" name="upperdiv" value="upperdivno"> No <br>
+  
+  Do you require any special accommodations?<br>
+  <input type="text" name="special"> <br> 
+  
+  Shirt Size?:<br>
+  <input type="text" name="shirtsize"> <br> 
+  
+  Dietary Restrictions / Allergies?<br>
+  <input type="text" name="diet"> <br>
+  
+  Do you have anything you would like to see at the event? (I.E. food, 
+  music type) <br>
+  <input type="text" name="suggestions"> <br> 
+  
+  Upload Resume   
+  <br>
+  <input type="file" name="resume"> <br> 
+  
+  How did you first hear about this event? <br> 
+  
+ <input type="radio" name="social" value="flyer"> Flyer <br>
+<input type="radio" name="social" value="friend"> Friend<br>
+<input type="radio" name="social" value="website"> Website<br>
+ <input type="radio" name="social" value="twitter"> Twitter <br>
+<input type="radio" name="social" value="facebook"> Facebook <br>
+<input type="radio" name="social" value="ds3news"> DS3 Newsletter<br>
+ <input type="radio" name="social" value="dscnews"> DSC Newsletter <br>
+<input type="radio" name="social" value="other"> Other <br>
+
+Why are you interested in DataHacks? (A few sentences)<br>
+  <input type="text" name="essay"> <br> 
+
+
+  
+ 
+  
+  
+
+    
+    
     <button type="submit">Apply</button>
 </form>
 

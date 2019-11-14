@@ -1,18 +1,24 @@
-var express     = require("express"),
-    router      = express.Router(),
-    passport    = require("passport"),
-    User        = require("../models/user");
-
+const   express     = require("express"),
+        router      = express.Router(),
+        passport    = require("passport"),
+        User        = require("../models/user"),
+        { check, validationResult } = require('express-validator'),
+        sanitizeHtml = require('sanitize-html');
 router.get("/", function(req, res) {
-    res.render("home");
+    res.render("home", {currentUser: req.user});
 });
 
 router.get("/signup", function(req, res) {
-    res.render("signup");
+    if (req.user) {
+        res.redirect("/dashboard");
+    } else {
+        res.render("signup");
+    }
 });
 
 router.post("/signup", function(req, res) {
     console.log(req.body);
+    let sanitizedBody = sanitizeHtml(req.body);
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -26,7 +32,11 @@ router.post("/signup", function(req, res) {
 });
 
 router.get("/login", function(req, res) {
-    res.render("login");
+    if (req.user) {
+        res.redirect("/dashboard");
+    } else {
+        res.render("login", {currentUser: req.user});
+    }
 });
 
 router.post("/login", passport.authenticate("local", 
@@ -39,6 +49,6 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res){
     req.logout();
     res.redirect("/");
-})
+});
 
 module.exports = router;
