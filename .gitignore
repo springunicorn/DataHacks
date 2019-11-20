@@ -102,3 +102,6 @@ public
 
 # Hidden variables
 hidden.js
+
+# Uploaded files
+storage/

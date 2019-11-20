@@ -4,6 +4,7 @@ const   express     = require("express"),
         User        = require("../models/user"),
         { check, validationResult } = require('express-validator'),
         sanitizeHtml = require('sanitize-html');
+
 router.get("/", function(req, res) {
     res.render("home", {currentUser: req.user});
 });
@@ -16,9 +17,11 @@ router.get("/signup", function(req, res) {
     }
 });
 
-router.post("/signup", function(req, res) {
+router.post("/signup", [
+    check('username').isEmail().normalizeEmail(),
+    check('password', "The password must be 8+ characters long").isLength({min: 8})
+    ], function(req, res) {
     console.log(req.body);
-    let sanitizedBody = sanitizeHtml(req.body);
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -42,7 +45,8 @@ router.get("/login", function(req, res) {
 router.post("/login", passport.authenticate("local", 
     {
         successRedirect:"/dashboard",
-        failureRedirect:"/login"
+        failureRedirect:"/login",
+        failureFlash: true
     }), function(req, res){
 });
 

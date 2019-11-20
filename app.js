@@ -4,6 +4,7 @@ const   express         = require("express"),
         LocalStrategy   = require("passport-local"),
         LocalMongoose   = require("passport-local-mongoose"),
         bodyParser      = require("body-parser"),
+        flash           = require("connect-flash"),
         User            = require("./models/user"),
         home            = require("./routes/home"),
         apply           = require("./routes/apply"),
@@ -26,11 +27,19 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){
+//   res.locals.currentUser = req.user;
+   res.locals.success = req.flash('success');
+   res.locals.error = req.flash('error');
+   next();
+});
 
 const mongoose = require("mongoose");
 mongoose.set("useNewUrlParser", true);
